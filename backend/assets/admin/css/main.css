@@ -1,0 +1,43 @@
+.main-content .navbar-top {
+    background: transparent !important;
+}
+
+.file-input {
+    width: 100%;
+}
+
+.input-group-btn {
+    display: block;
+    width: auto;
+}
+
+.breadcrumb {
+    margin-top: 20px;
+}
+
+.dd3-handle::before {
+    top: 20px;
+    font-size: 32px;
+}
+
+.main-buttons {
+    padding: 15px 5px;
+}
+
+.main-action-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main-action-buttons .btn {
+    font-size: 12px;
+    padding: 10px 5px;
+}
+
+.main-action-buttons .btn i {
+    font-size: 10px;
+}
+
+.input-group-addon {
+    padding: 15px 25px 15px 15px !important;
+}
