@@ -14,7 +14,9 @@ class m211128_114645_create_service_table extends Migration
     {
         $this->createTable('{{%service}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
+            'name' => 'json',
+            'title' => 'json',
+            'icon' => $this->integer(),
         ]);
     }
 

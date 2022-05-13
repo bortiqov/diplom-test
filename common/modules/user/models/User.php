@@ -517,35 +517,16 @@ class User extends ActiveRecord implements IdentityInterface
 
                 return @$image->getImageSrc('small');
             },
-            'country',
             "created_at",
             "updated_at",
             "status",
-            'affiliate_key'
         ];
     }
 
     public function extraFields()
     {
         return [
-            'bookmarks' => function () {
-                return $this->userBookmarks;
-            },
-            'bookmarksCount' => function () {
-                return $this->getBookmarks()->count();
-            },
-            'productBookmarks' => function () {
-                return $this->userProductBookmarks;
-            },
-            'productBookmarksCount' => function () {
-                return $this->getBookmarks()->count();
-            },
-            'organizationRates' => function () {
-                return $this->getAverageRate();
-            },
-            'productRates' => function () {
-                return $this->getProductAverageRate();
-            }
+
         ];
     }
 

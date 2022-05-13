@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\modules\file\models\File;
 use Yii;
 
 /**
@@ -28,7 +29,8 @@ class Service extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255],
+            [['name', 'title'], 'safe'],
+            [['icon'], 'integer'],
         ];
     }
 
@@ -51,5 +53,10 @@ class Service extends \yii\db\ActiveRecord
     public function getRoutes()
     {
         return $this->hasMany(Route::className(), ['service_id' => 'id']);
+    }
+
+    public function getFile()
+    {
+        return $this->hasOne(File::class, ['id' => 'icon']);
     }
 }
