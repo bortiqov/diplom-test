@@ -1,8 +1,8 @@
 <?php
 
-use api\modules\v1\Module;
-use common\models\User;
-//use common\modules\user\models\User;
+
+use common\modules\user\models\User;
+use yii\helpers\ArrayHelper;
 
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
@@ -10,33 +10,37 @@ $params = array_merge(
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
-
 return [
-    'id' => 'app-api',
+    'id' => 'admin-api',
     'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'api\controllers',
     'bootstrap' => ['log'],
-    'language' => 'ru',
+    'controllerNamespace' => 'api\controllers',
     'modules' => [
         'v1' => \api\modules\v1\Module::class,
+        'admin' => \api\modules\admin\Module::class,
     ],
+    'language' => 'ru',
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-api',
+            'enableCookieValidation' => false,
             'parsers' => [
-                'application/json' => 'yii\web\JsonParser'
+                'application/json' => 'yii\web\JsonParser',
             ],
         ],
         'response' => [
             'class' => \yii\web\Response::class,
             'format' => \yii\web\Response::FORMAT_JSON,
-            'charset' => 'UTF-8',
+            'formatters' => [
+                \yii\web\Response::FORMAT_JSON => [
+                    'class' => 'yii\web\JsonResponseFormatter',
+                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+                ],
+            ],
         ],
         'user' => [
             'identityClass' => User::class,
             'enableAutoLogin' => true,
             'enableSession' => false,
-            'identityCookie' => ['name' => '_identity-api', 'httpOnly' => true],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -50,8 +54,9 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => Module::$urlRules,
+            'rules' => \api\modules\v1\Module::$urlRules
         ],
+
     ],
     'params' => $params,
 ];
