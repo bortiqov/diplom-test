@@ -10,6 +10,7 @@ use api\models\forms\ResetPasswordForm;
 use api\models\forms\UpdateForm;
 use api\models\User;
 use common\components\ApiController;
+use common\modules\user\models\UserSearch;
 use GuzzleHttp\Client;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -21,8 +22,8 @@ use yii\web\UploadedFile;
 
 class UserController extends ApiController
 {
-    public $modelClass ='api\models\User';
-    public $searchModelClass = 'common\models\UserSearch';
+    public $modelClass =\common\modules\user\models\User::class;
+    public $searchModel = UserSearch::class;
     /**
      * @return User|\yii\web\IdentityInterface|null
      */
