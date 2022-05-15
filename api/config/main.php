@@ -54,7 +54,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => \api\modules\v1\Module::$urlRules
+            'rules' => \api\modules\admin\Module::$urlRules
         ],
 
     ],

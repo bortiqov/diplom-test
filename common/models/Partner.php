@@ -46,4 +46,14 @@ class Partner extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'description',
+            'title',
+            'status'
+        ];
+    }
 }

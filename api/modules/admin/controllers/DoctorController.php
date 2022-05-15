@@ -17,40 +17,4 @@ class DoctorController extends \common\components\CrudController
 {
     public $modelClass = Doctor::class;
     public $searchModel = DoctorSearch::class;
-
-
-    public function actionCreate()
-    {
-        $requestParams = \Yii::$app->getRequest()->getBodyParams();
-        if (!$requestParams) {
-            $requestParams = \Yii::$app->getRequest()->getQueryParams();
-        }
-
-        $form = new UserCreateForm();
-        $form->setAttributes($requestParams);
-        if ($user = $form->save()) {
-            return $user;
-        }
-        Yii::$app->response->setStatusCode(400);
-        return $form->errors;
-    }
-
-
-    public function actionUpdate($id)
-    {
-        $requestParams = \Yii::$app->getRequest()->getBodyParams();
-        if (!$requestParams) {
-            $requestParams = \Yii::$app->getRequest()->getQueryParams();
-        }
-
-        $form = new UserUpdateForm([
-            'id' => $id
-        ]);
-        $form->setAttributes($requestParams);
-        if ($user = $form->save()) {
-            return $user;
-        }
-        Yii::$app->response->setStatusCode(400);
-        return $form->errors;
-    }
 }

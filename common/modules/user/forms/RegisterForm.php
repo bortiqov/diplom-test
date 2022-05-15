@@ -17,7 +17,10 @@ class RegisterForm extends Model
     /**
      * @var
      */
+    public $fullname;
     public $email;
+    public $password;
+    public $confirm_password;
 
     /**
      * @var
@@ -30,14 +33,14 @@ class RegisterForm extends Model
     public function rules()
     {
         return [
-            [['email'], 'required'],
-//            [['email'], 'email'],
-            ['email', 'unique', 'targetClass' => User::class],
+            [['fullname', 'email', 'password'], 'required'],
+            [['email'], 'email'],
+            [['email'], 'unique', 'targetClass' => User::class],
         ];
     }
 
     /**
-     * @return $this|bool|UserEmailConfirmation
+     * @return $this|User|false
      * @throws \yii\base\Exception
      */
     public function save()
@@ -45,43 +48,36 @@ class RegisterForm extends Model
         if (!$this->validate()) {
             return false;
         }
-
-
         $user = $this->createUser();
-
-        if ($this->_confirmation !== null) {
-
-            /**
-             * @var UserEmailConfirmation $model
-             */
-            $model = $this->_confirmation;
-            $model->setResponseCode(101);
-            $model->setResponseBody(true);
-
-            return $model;
+        if ($user) {
+            return $user;
         }
 
         return $this;
     }
 
     /**
-     * @return User
+     * @return array|User
      * @throws \yii\base\Exception
      */
     private function createUser()
     {
         $user = new User();
         $user->setAttributes([
+            'first_name' => $this->fullname,
+            'last_name' => $this->fullname,
             'email' => $this->email,
+            'status' => User::STATUS_ACTIVE,
         ]);
+        $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->setToken();
+        if ($user->save()) {
+            return $user;
+        }
+        \Yii::$app->response->setStatusCode(400);
+        return $user->errors;
 
-        $user->save();
-
-        $this->_confirmation = $user->sendEmailConfirmationCode();
-
-        return $user;
     }
 
 }

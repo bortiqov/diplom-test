@@ -111,7 +111,7 @@ class Module extends \yii\base\Module
         ],
         [
             'class' => 'yii\rest\UrlRule',
-            'controller' => 'v1/partner',
+            'controller' => 'admin/partner',
             'pluralize' => false,
             'patterns' => [
                 'OPTIONS <action>' => 'options',
@@ -128,7 +128,24 @@ class Module extends \yii\base\Module
         ],
         [
             'class' => 'yii\rest\UrlRule',
-            'controller' => 'v1/doctor',
+            'controller' => 'admin/doctor',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+                'OPTIONS' => 'options',
+                'OPTIONS <id:\d+>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+                'POST' => 'create',
+                'POST <id:\d+>' => 'update',
+                'DELETE <id:\d+>' => 'delete',
+
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'admin/service',
             'pluralize' => false,
             'patterns' => [
                 'OPTIONS <action>' => 'options',

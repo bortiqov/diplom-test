@@ -2,16 +2,10 @@
 
 namespace api\modules\v1\controllers;
 
-use api\models\forms\ForgotPasswordForm;
-use api\models\forms\LoginForm;
-use api\models\forms\RegisterForm;
-use api\models\forms\RegisterSocialForm;
-use api\models\forms\ResetPasswordForm;
-use api\models\forms\UpdateForm;
-use api\models\User;
+use api\models\form\LoginForm;
 use common\components\ApiController;
+use common\modules\user\forms\RegisterForm;
 use common\modules\user\models\UserSearch;
-use GuzzleHttp\Client;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -24,16 +18,11 @@ class UserController extends ApiController
 {
     public $modelClass =\common\modules\user\models\User::class;
     public $searchModel = UserSearch::class;
-    /**
-     * @return User|\yii\web\IdentityInterface|null
-     */
-    public function actionGetMe()
-    {
-        return User::findIdentity(Yii::$app->user->id);
-    }
+
 
     /**
-     * @return RegisterForm|User
+     * @return array|RegisterForm|\common\modules\user\models\User
+     * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
      */
     public function actionRegister()
@@ -50,7 +39,7 @@ class UserController extends ApiController
         if (!$user) {
             return $form;
         }
-        
+
         return $user;
     }
 
@@ -72,23 +61,6 @@ class UserController extends ApiController
         return $user;
     }
 
-    public function actionUpdate()
-    {
-        $requestParams = Yii::$app->getRequest()->getBodyParams();
-        if (empty($requestParams)) {
-            $requestParams = Yii::$app->getRequest()->getQueryParams();
-        }
-
-        $form = new UpdateForm();
-        $form->setAttributes($requestParams);
-        $user = $form->save();
-
-        if (!$user) {
-            return $form;
-        }
-
-        return $user;
-    }
 
     /**
      * @param $service

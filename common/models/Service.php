@@ -59,4 +59,14 @@ class Service extends \yii\db\ActiveRecord
     {
         return $this->hasOne(File::class, ['id' => 'icon']);
     }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'name',
+            'file'
+        ];
+    }
 }

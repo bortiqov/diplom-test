@@ -34,7 +34,7 @@ class Banner extends \yii\db\ActiveRecord
         return [
             [['file_id'], 'default', 'value' => null],
             [['file_id','position'], 'integer'],
-            [['title', 'description', 'link'], 'string', 'max' => 255],
+            [['title', 'description', 'link'], 'safe'],
             [['file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::className(), 'targetAttribute' => ['file_id' => 'id']],
         ];
     }
@@ -61,5 +61,17 @@ class Banner extends \yii\db\ActiveRecord
     public function getFile()
     {
         return $this->hasOne(File::className(), ['id' => 'file_id']);
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'description',
+            'position',
+            'link',
+            'file'
+        ];
     }
 }

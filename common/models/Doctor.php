@@ -20,6 +20,9 @@ use Yii;
  */
 class Doctor extends \yii\db\ActiveRecord
 {
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
     /**
      * {@inheritdoc}
      */
@@ -65,5 +68,18 @@ class Doctor extends \yii\db\ActiveRecord
     public function getLogo()
     {
         return $this->hasOne(File::className(), ['id' => 'logo_id']);
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'first_name',
+            'last_name',
+            'status',
+            'lavozim',
+            'bio',
+            'logo'
+        ];
     }
 }

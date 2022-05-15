@@ -6,6 +6,7 @@ namespace api\modules\admin\controllers;
 use api\models\form\LoginForm;
 use common\components\ApiController;
 
+use common\modules\user\forms\RegisterForm;
 use common\modules\user\models\User;
 use GuzzleHttp\Client;
 use Yii;
