@@ -7,7 +7,9 @@ use yii\filters\ContentNegotiator;
 use yii\filters\RateLimiter;
 use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
+use yii\rest\IndexAction;
 use yii\rest\OptionsAction;
+use yii\rest\ViewAction;
 use yii\web\Response;
 
 /**
@@ -67,6 +69,14 @@ abstract class ApiController extends Controller
         return [
             'options' => [
                 'class' => OptionsAction::class,
+            ],
+            'index' => [
+                'class' => IndexAction::class,
+                'modelClass' => $this->modelClass
+            ],
+            'view' => [
+                'class' => ViewAction::class,
+                'modelClass' => $this->modelClass
             ]
         ];
     }

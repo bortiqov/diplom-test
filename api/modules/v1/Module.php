@@ -35,6 +35,10 @@ class Module extends \yii\base\Module
             'class' => CompositeAuth::class,
             'except' => [
                 'default/*',
+                'banner/*',
+                'partner/*',
+                'service/*',
+                'doctor/*',
                 'options',
                 '*/options',
             ],
@@ -93,6 +97,23 @@ class Module extends \yii\base\Module
         ],
         [
             'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/doctor-subscription',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+                'OPTIONS' => 'options',
+                'OPTIONS <id:\d+>' => 'options',
+
+                'GET' => 'index',
+                'GET <id:\d+>' => 'view',
+                'POST' => 'create',
+                'POST <id:\d+>' => 'update',
+                'DELETE <id:\d+>' => 'delete',
+
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
             'controller' => 'v1/page',
             'pluralize' => false,
             'patterns' => [
@@ -104,6 +125,58 @@ class Module extends \yii\base\Module
 
                 'GET <slug:\S+>' => 'page',
                 'OPTIONS <slug:\S+>' => 'options',
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/banner',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'OPTIONS <id:\d+>' => 'options',
+                'GET <id:\d+>' => 'view',
+
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/partner',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'OPTIONS <id:\d+>' => 'options',
+                'GET <id:\d+>' => 'view',
+
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/doctor',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'OPTIONS <id:\d+>' => 'options',
+                'GET <id:\d+>' => 'view',
+
+            ]
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => 'v1/service',
+            'pluralize' => false,
+            'patterns' => [
+                'OPTIONS <action>' => 'options',
+
+                'GET' => 'index',
+                'OPTIONS <id:\d+>' => 'options',
+                'GET <id:\d+>' => 'view',
+
             ]
         ],
         [

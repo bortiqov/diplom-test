@@ -54,7 +54,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => \api\modules\admin\Module::$urlRules
+            'rules' => array_merge(\api\modules\admin\Module::$urlRules,\api\modules\v1\Module::$urlRules)
         ],
 
     ],
